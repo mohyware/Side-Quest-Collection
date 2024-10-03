@@ -1,0 +1,21 @@
+{
+  "name": "7-github-api-endpoint-task",
+  "version": "1.0.0",
+  "description": "Create a Node.js CLI application that uses GitHub API to get the repositories of a single user.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "inquirer": "^10.1.8"
+  },
+  "bin": {
+    "my-node-cli": "./index.js"
+  },
+  "type": "module"
+}

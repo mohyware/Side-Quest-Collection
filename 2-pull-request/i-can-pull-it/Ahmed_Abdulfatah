@@ -1,0 +1,10 @@
+#include<iostream>
+#include<string>
+using namespace std;
+int main() {
+    long long num;
+    cin >> num;
+    num = (num * (num + 1)) / 2;
+    cout << num ;
+    return 0;
+}
