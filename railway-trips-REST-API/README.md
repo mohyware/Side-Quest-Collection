@@ -1,5 +1,5 @@
 # App
-This is the App Task
+This is the RailWay Trip Task
 
 ## Usage
 * Clone the repository to your machine
@@ -23,3 +23,7 @@ npm run build
 ```bash
 npm run start
 ```
+
+### Api-endpoints
+* `POST /trips/`: Fetches trips based on filtering, sorting, and pagination parameters.
+* `GET /trips/`: Creates a new trip based on the provided data in the request body.

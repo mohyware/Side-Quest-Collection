@@ -2,10 +2,7 @@ import { Router } from 'express';
 import DatabaseService from '../services/database.service';
 import { Trip } from '../models/trip.model';
 import {
-    ReasonPhrases,
-    StatusCodes,
-    getReasonPhrase,
-    getStatusCode,
+    StatusCodes
 } from 'http-status-codes';
 import { isValidDate } from '../utilities/isValidDate'
 import { stringToDate } from '../utilities/stringToDate'
@@ -27,14 +24,14 @@ router.get('/', async (req, res) => {
         if (date_from) {
             const valid = isValidDate(date_from as string);
             if (!valid) {
-                return res.status(400).json({ error: 'Invalid date_from format. Use DD-MM-YYYY.' });
+                return res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid date_from format. Use DD-MM-YYYY.' });
             }
             query.startingDate = { $gte: stringToDate(date_from as string) }; // Convert to JavaScript Date
         }
         if (date_till) {
             const valid = isValidDate(date_till as string);
             if (!valid) {
-                return res.status(400).json({ error: 'Invalid date_till format. Use DD-MM-YYYY.' });
+                return res.status(StatusCodes.BAD_REQUEST).json({ error: 'Invalid date_till format. Use DD-MM-YYYY.' });
             }
             query.endDate = { $lte: stringToDate(date_till as string) }; // Convert to JavaScript Date
         }
@@ -64,7 +61,7 @@ router.get('/', async (req, res) => {
         // Get total count for pagination info
         const totalCount = await Trip.countDocuments(query);
 
-        res.json({
+        res.status(StatusCodes.OK).json({
             totalCount,
             totalPages: Math.ceil(totalCount / limitNumber),
             currentPage: pageNumber,
@@ -72,7 +69,7 @@ router.get('/', async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: 'Internal Server Error' });
     }
 });
 
@@ -84,7 +81,6 @@ router.post('/', async (req, res) => {
         startingDate,
         duration,
         passengers, } = req.body;
-    console.log(departurePlace, destination, startingDate, duration, passengers)
     if (!departurePlace || !destination || !startingDate || !duration || !passengers) {
         return res
             .status(StatusCodes.BAD_REQUEST)
