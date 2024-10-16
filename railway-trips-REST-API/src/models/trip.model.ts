@@ -4,6 +4,7 @@ export interface Trip extends Document {
     departurePlace: string,
     destination: string,
     startingDate: Date,
+    endDate: Date,
     duration: Number,
     passengers: Number,
 }
@@ -18,6 +19,10 @@ const TripSchema = new mongoose.Schema({
         required: true
     },
     startingDate: {
+        type: Date,
+        required: true
+    },
+    endDate: {
         type: Date,
         required: true
     },

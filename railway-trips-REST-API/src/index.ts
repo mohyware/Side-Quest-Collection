@@ -4,6 +4,7 @@ var morgan = require('morgan')
 import indexRouter from './routes/index.route';
 
 const app = config.app;
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('tiny'))
 
