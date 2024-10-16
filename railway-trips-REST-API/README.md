@@ -1,7 +1,6 @@
-# Gallery App
-This is the Gallery App Task
+# App
+This is the App Task
 
-![alt text](screenshots/image.png)
 ## Usage
 * Clone the repository to your machine
 * Install dependencies `npm install`
