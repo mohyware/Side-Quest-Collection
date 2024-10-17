@@ -10,6 +10,7 @@ const connectDB = require('../src/db/connect')
 
 const auth = require('./routes/auth')
 const googleAuth = require('./routes/google-auth')
+const facebookAuth = require('./routes/facebook-auth')
 
 const cookieParser = require('cookie-parser');
 
@@ -21,12 +22,14 @@ app.use('/api/v1/auth', auth);
 
 const passport = require('passport');
 require('./config/passport');
+
 const session = require('express-session');
 
 app.use(session({ secret: 'cats', resave: false, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/api/v1/googleAuth', googleAuth);
+app.use('/api/v1/facebookAuth', facebookAuth);
 
 
 const startServer = async () => {
