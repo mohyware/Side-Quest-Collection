@@ -4,21 +4,30 @@
 import express from 'express';
 import cors from 'cors';
 require('dotenv').config();
-const connectDB = require('../src/db/connect')
-const auth = require('./routes/auth')
 const app = express();
-const authMiddleware = require('./middleware/auth-middleware')
+
+const connectDB = require('../src/db/connect')
+
+const auth = require('./routes/auth')
+const googleAuth = require('./routes/google-auth')
+
 const cookieParser = require('cookie-parser');
 
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }))
 app.use(cors());
 app.use(express.json());
-app.use('/users', auth);
+app.use('/api/v1/auth', auth);
 
-app.get('/users/access', authMiddleware, async (req, res) => {
-    res.status(200).json({ msg: "life is good" })
-})
+const passport = require('passport');
+require('./config/passport');
+const session = require('express-session');
+
+app.use(session({ secret: 'cats', resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use('/api/v1/googleAuth', googleAuth);
+
 
 const startServer = async () => {
     await connectDB(process.env.MONGO_URI);

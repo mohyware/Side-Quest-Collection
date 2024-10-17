@@ -16,14 +16,16 @@ const UserSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: [true, 'Please provide password'],
+        required: [false, 'Please provide password'],
         minlength: 4,
     },
 })
 
 UserSchema.pre('save', async function (this: any) {
-    const salt = await bcrypt.genSalt(10)
-    this.password = await bcrypt.hash(this.password, salt)
+    if (this.passport) {
+        const salt = await bcrypt.genSalt(10)
+        this.password = await bcrypt.hash(this.password, salt)
+    }
 })
 
 UserSchema.methods.comparePassword = async function (canditatePassword) {
@@ -31,4 +33,12 @@ UserSchema.methods.comparePassword = async function (canditatePassword) {
     return isMatch
 }
 
-module.exports = mongoose.model('User', UserSchema)
+const User = mongoose.model('User', UserSchema);
+
+const FederatedCredential = mongoose.model('FederatedCredential', new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    provider: String,
+    subject: String,
+}));
+
+module.exports = { User, FederatedCredential }

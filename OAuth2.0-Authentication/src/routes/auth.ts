@@ -1,11 +1,19 @@
 const express = require('express')
+const router = express.Router()
+
 const User = require('../model/user')
-const { StatusCodes } = require('http-status-codes')
 const bcrypt = require('bcryptjs')
+const { StatusCodes } = require('http-status-codes')
 const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')
-const router = express.Router()
-// middleware 
+const authMiddleware = require('../middleware/auth-middleware')
+
+
+router.get('/access', authMiddleware, async (req, res) => {
+    res.status(200).json({ msg: "life is good" })
+})
+
+// normal register and login 
 router.use(function timeLog(req, res, next) {
     console.log('Time: ', Date.now())
     next()
@@ -106,4 +114,5 @@ router.delete('/logout', (req, res) => {
     res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true })
     res.json({ message: 'Cookie cleared' })
 })
+
 module.exports = router;
