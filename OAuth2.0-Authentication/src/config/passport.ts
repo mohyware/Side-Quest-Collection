@@ -61,9 +61,9 @@ passport.use(new GoogleStrategy({
 
 // Configure Facebook OAuth Strategy
 passport.use(new FacebookStrategy({
-    clientID: '1585403159075564',
-    clientSecret: process.env.FACEBOOK_APP_SECRET as string,
-    callbackURL: process.env.FACEBOOK_REDIRECT_URL as string,
+    clientID: process.env.FACEBOOK_CLIENT_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    callbackURL: process.env.FACEBOOK_REDIRECT_URL,
     passReqToCallback: true,
 },
     async (request, accessToken, refreshToken, profile, cb) => {
