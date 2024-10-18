@@ -41,7 +41,7 @@ router.post('/register', async (req, res) => {
 
         async function main() {
             const info = await transporter.sendMail({
-                from: 'mohieelden50@gmail.com', // sender address
+                from: `${process.env.SMTP_MAIL}`, // sender address
                 to: email, // list of receivers
                 subject: "Confirmation Email ✔", // Subject line
                 text: `http://localhost:3000/users/confirm/${user._id}/${token}`, // plain text body
