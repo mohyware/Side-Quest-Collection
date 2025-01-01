@@ -1,0 +1,2 @@
+## Side Quest Collection
+A repository of diverse tasks, mini-projects, and experimental code snippets from various roadmaps and independent explorations. This collection showcases progress, skills, and creativity in tackling challenges across different domains, all without following a single roadmap. Perfect for learning, experimenting, and revisiting ideas!
